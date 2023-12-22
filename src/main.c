@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include "zapis_wyniku.h"
+#include "wczytanie_planszy.h"
 int main(int argc, char *argv[]) {
     int opcje;
     int m = 0;  // Liczba wierszy
@@ -9,8 +10,11 @@ int main(int argc, char *argv[]) {
     int iteracje = 0;  // Liczba iteracji
     char *nazwa_wynikowa = NULL;  // Nazwa plików wynikowych
     char *kierunek = NULL;  // Kierunek początkowy mrowki g - gora d -dol p - prawo l - lewo
+	double zapelnienie_procentowe =0.0;
+	int y_mrowki=r/2;
+	int x_mrowki=c/2;
 
-    while ((opcje = getopt(argc, argv, "m:n:i:p:k:")) != -1) {
+    while ((opcje = getopt(argc, argv, "m:n:i:p:k:z:")) != -1) {
         switch (opcje) {
             case 'm':
 				if(m!=0){
@@ -67,7 +71,21 @@ int main(int argc, char *argv[]) {
 				}
                 kierunek = optarg;
                 break;
-			
+			case 'z':
+				if(zapelnienie_procentowe!=0.0){
+					fprintf(stderr, "BLAD: Wielokrotne uzycie tego samego argumentu\n");
+					exit(1);
+				}
+				if(optarg[0]=='-'){
+					fprintf(stderr, "Nie podano poprawnej wartosci dla argumentu -%c\n", 'z');
+					exit(1);
+				}
+                zapelnienie_procentowe = atof(optarg);
+				if(zapelnienie_procentowe>1.0){
+					fprintf(stderr, "Podano zbyt duza wartosc zapelnienia: %f\n", zapelnienie_procentowe);
+					exit(1);
+				}
+                break;
             case '?':
 				if(optopt == 'm' ||optopt == 'n' ||optopt == 'i' ||optopt == 'p' ||optopt == 'k'){
 					fprintf(stderr, "Nie podano wartosci dla argumentu -%c\n", optopt);
@@ -86,7 +104,19 @@ int main(int argc, char *argv[]) {
             break;
         }
     }
-
+	if(nazwa_wynikowa==NULL){
+		nazwa_wynikowa="wynik";
+	}
+	if(kierunek==NULL){
+		fprintf(stderr, "Nie podano kierunku startowego mrowki\n");
+		exit(1);
+	}
     printf("Opcje m=%i n=%i iteracje=%i nazwa_wynikowa=%s kierunek=%s\n", m, n, iteracje, nazwa_wynikowa, kierunek);
+	char *plansza[m][n]; //Zainicjowanie planszy
+	
+	wypelnienie_planszy(m,n,kierunek, y_mrowki, x_mrowki, zapelnienie_procentowe, plansza);
+	
+	
+	wypisanie_planszy(m,n,plansza);
     return 0;
 }
