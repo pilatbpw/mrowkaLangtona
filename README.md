@@ -1,0 +1,2 @@
+# mrowkaLangtona
+Zadanie JIMP
