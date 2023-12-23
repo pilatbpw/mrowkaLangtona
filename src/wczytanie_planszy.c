@@ -7,8 +7,7 @@ char* mrowka_D[2] = {"v", "\xe2\x96\xbc"};  // ale nie dzialaja znaki trojatow n
 char* bialy_blok="\xe2\x96\x88";
 char* czarny_blok=" ";
 
-void generowanie_planszy_poczatkowej(int r, int c, char* kierunek, int y_mrowki,int x_mrowki, double zapelnienie_procentowe, char* plansza[r][c]){
-	
+void generowanie_planszy_poczatkowej(int r, int c, char* kierunek, int y_mrowki,int x_mrowki, double zapelnienie_procentowe, char* plansza[r][c]) {
 	char* znak_podstawowy;
 	
 	znak_podstawowy=bialy_blok;
