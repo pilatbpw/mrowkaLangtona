@@ -93,9 +93,7 @@ void obsluga_argumentow(int liczba_argumentow, char *argumenty[], int* m, int* n
 				break;
 			}
 		}
-		if(*nazwa_wynikowa==NULL){
-			*nazwa_wynikowa="wynik";
-		}
+		
 		if(*kierunek==NULL){
 			fprintf(stderr, "Nie podano kierunku startowego mrowki\n");
 			exit(1);
