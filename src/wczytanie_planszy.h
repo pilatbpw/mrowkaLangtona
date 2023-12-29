@@ -2,6 +2,8 @@
 #define _WCZYTANIE_PLANSZY
 
 #include <stdio.h>
+#include <wchar.h>
+#include <locale.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
