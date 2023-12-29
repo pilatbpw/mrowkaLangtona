@@ -107,7 +107,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 	int x=0;
 	printf("test: %s\n", plansza[0][0]);
 	while((znak=fgetwc(plik_wejsciowy))!=WEOF){
-		//printf("znak=%lc\n", znak);
+		printf("znak=%lc\n", znak);
 		if(znak!='\n'){
 			if(znak == L'█' || znak == L'►' || znak == L'◄' || znak == L'▲' || znak == L'▼')
 			{
@@ -121,7 +121,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = 'p';
+						kierunek = (char*)'p';
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -133,7 +133,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = 'l';
+						kierunek = (char*)'l';
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -145,7 +145,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = 'g';
+						kierunek = (char*)'g';
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -157,7 +157,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = 'd';
+						kierunek = (char*)'d';
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -176,7 +176,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = 'p';
+						kierunek = (char*)'p';
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -188,7 +188,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = 'l';
+						kierunek = (char*)'l';
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -200,7 +200,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = 'g';
+						kierunek = (char*)'g';
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -212,7 +212,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = 'd';
+						kierunek = (char*)'d';
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
