@@ -1,4 +1,7 @@
 #include "wczytanie_planszy.h"
+#include <stdio.h>
+#include <wchar.h>
+#include <locale.h>
 
 char* mrowka_L[2] = {"<", "\xe2\x97\x84"};  // [0] to czarna, [1] to biała
 char* mrowka_P[2] = {">", "\xe2\x96\xba"};
@@ -97,84 +100,138 @@ void okreslenie_wielkosci_wczytanej_planszy(FILE* plik_wejsciowy, int *r, int* c
 }
 
 void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char* kierunek, char* plansza[r][c], FILE* plik_wejsciowy){
-	char znak;
-	
-	char seria_znakow[4]="";
+	wchar_t znak;
+	setlocale(LC_ALL, "en_US.utf8");
 	
 	int y=0;
 	int x=0;
 	printf("test: %s\n", plansza[0][0]);
-		while((znak=fgetc(plik_wejsciowy))!=EOF){
-			printf("znak=%c\n",znak);
-			if(znak!='\n'){
-				if(znak==' ' || znak == '<' || znak=='>' || znak == '^' || znak=='v' ){
-					
-					plansza[y][x][0]=znak;
-					
+	while((znak=fgetwc(plik_wejsciowy))!=WEOF){
+		//printf("znak=%lc\n", znak);
+		if(znak!='\n'){
+			if(znak == L'█' || znak == L'►' || znak == L'◄' || znak == L'▲' || znak == L'▼')
+			{
+				if(znak == L'█')
+				{
+					plansza[y][x]="\xe2\x96\x88";
 				}
-				else{
-					
-					seria_znakow[0]=znak;
-					seria_znakow[1]=fgetc(plik_wejsciowy);
-					seria_znakow[2]=fgetc(plik_wejsciowy);
-					seria_znakow[3]='\0';
-					printf("TEST\n");
-					strcpy(plansza[y][x],seria_znakow); // W TEJ LINNI WYSKAKUJE SEGMENTATION FAULT. JEST TO SPOWODOWANE TYM ZE ZLE SA PRZYPISYWANE DANE DO plansza[y][x]. TEN SAM BLAD MOZE POTEM WYSKOCZYC W generuj_poczatkowa BO TAM NIECHCACY ZROBILEM PODPINAJAC POD ADRESY. Moze tu tez tak zrobic i bedzie rozwiazane?
-					printf("TEST\n");
+				else if(znak == L'►')
+				{
+					plansza[y][x]="\xe2\x96\xba";
+					if(kierunek==NULL){
+						*y_mrowki=y;
+						*x_mrowki=x;
+						kierunek = 'p';
+					}else{
+						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
+						exit(1);
+					}
+				}
+				else if(znak == L'◄')
+				{
+					plansza[y][x]="\xe2\x97\x84";
+					if(kierunek==NULL){
+						*y_mrowki=y;
+						*x_mrowki=x;
+						kierunek = 'l';
+					}else{
+						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
+						exit(1);
+					}
+				}
+				else if(znak == L'▲')
+				{
+					plansza[y][x]="\xe2\x96\xb2";
+					if(kierunek==NULL){
+						*y_mrowki=y;
+						*x_mrowki=x;
+						kierunek = 'g';
+					}else{
+						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
+						exit(1);
+					}
+				}
+				else if(znak == L'▼')
+				{
+					plansza[y][x]="\xe2\x96\xbc";
+					if(kierunek==NULL){
+						*y_mrowki=y;
+						*x_mrowki=x;
+						kierunek = 'd';
+					}else{
+						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
+						exit(1);
+					}
+				}
+			}
+			else if(znak == ' ' || znak == '>' || znak == '<' || znak == '^' || znak == 'v')
+			{
+				if(znak == ' ')
+				{
+					plansza[y][x]=" ";
+				}
+				if(znak == '>')
+				{
+					plansza[y][x]=">";
+					if(kierunek==NULL){
+						*y_mrowki=y;
+						*x_mrowki=x;
+						kierunek = 'p';
+					}else{
+						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
+						exit(1);
+					}
+				}
+				else if(znak == '<')
+				{
+					plansza[y][x]="<";
+					if(kierunek==NULL){
+						*y_mrowki=y;
+						*x_mrowki=x;
+						kierunek = 'l';
+					}else{
+						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
+						exit(1);
+					}
+				}
+				else if(znak == '^')
+				{
+					plansza[y][x]="^";
+					if(kierunek==NULL){
+						*y_mrowki=y;
+						*x_mrowki=x;
+						kierunek = 'g';
+					}else{
+						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
+						exit(1);
+					}
+				}
+				else if(znak == 'v')
+				{
+					plansza[y][x]="v";
+					if(kierunek==NULL){
+						*y_mrowki=y;
+						*x_mrowki=x;
+						kierunek = 'd';
+					}else{
+						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
+						exit(1);
+					}
 				}
 				
-				if(znak!=czarny_blok[0] && strcmp(seria_znakow,bialy_blok)!=0 && znak != '<' && strcmp(seria_znakow,mrowka_L[1])!=0 && znak != '>' && strcmp(seria_znakow,mrowka_P[1])!=0 && znak != '^' && strcmp(seria_znakow,mrowka_G[1])!=0 && znak != 'v' && strcmp(seria_znakow,mrowka_D[1])!=0){
-					fprintf(stderr, "BLAD: Nieznany znak w planszy wejsciowej\n");
-					exit(1);
-				}
-				printf("plansza[%d][%d] = %s\n", y,x,plansza[y][x]);
-				if(znak!=' '){
-				if(znak == '<' || strcmp(seria_znakow,mrowka_L[1])==0){
-					if(kierunek==NULL){
-						*y_mrowki=y;
-						*x_mrowki=x;
-						kierunek[0]='l';
-					}else{
-						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
-						exit(1);
-					}
-				}else if(znak == '>' || strcmp(seria_znakow,mrowka_P[1])==0){
-					if(kierunek==NULL){
-						*y_mrowki=y;
-						*x_mrowki=x;
-						kierunek[0]='p';
-					}else{
-						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
-						exit(1);
-					}
-				}else if(znak == '^' || strcmp(seria_znakow,mrowka_G[1])==0){
-					if(kierunek==NULL){
-						*y_mrowki=y;
-						*x_mrowki=x;
-						kierunek[0]='g';
-					}else{
-						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
-						exit(1);
-					}
-				}else if(znak == 'v' || strcmp(seria_znakow,mrowka_D[1])==0){
-					if(kierunek==NULL){
-						*y_mrowki=y;
-						*x_mrowki=x;
-						kierunek[0]='d';
-					}else{
-						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
-						exit(1);
-					}
-				}
-				}
-				x++;
 			}
-			else{
-				y++;
-				x=0;
+			else
+			{
+				fprintf(stderr, "BLAD: Nieznany znak w planszy wejsciowej\n");
+				exit(1);	
 			}
-			
+			//printf("plansza[%d][%d] = %s\n", y, x, plansza[y][x]);
+			x++;
+		} else {
+			y++;
+			x=0;
 		}
-	
+	}
+	//printf("%c\n", kierunek);
 }
 
