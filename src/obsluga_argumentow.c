@@ -14,7 +14,6 @@ void obsluga_argumentow(int liczba_argumentow, char *argumenty[], int* m, int* n
 						fprintf(stderr, "BLAD: Nie podano poprawnej wartosci dla argumentu -%c\n", 'w');
 						exit(1);
 					}
-					
 					*plansza_wejsciowa = optarg;
 					break;
 				case 'm':
@@ -88,7 +87,7 @@ void obsluga_argumentow(int liczba_argumentow, char *argumenty[], int* m, int* n
 					}
 					break;
 				case '?':
-					if(optopt == 'm' ||optopt == 'n' ||optopt == 'i' ||optopt == 'p' ||optopt == 'k' || optopt =='w'){
+					if(optopt == 'm' ||optopt == 'n' ||optopt == 'i' ||optopt == 'p' ||optopt == 'k' || optopt =='w' || optopt =='z'){
 						fprintf(stderr, "BLAD: Nie podano wartosci dla argumentu -%c\n", optopt);
 						exit(1);
 					

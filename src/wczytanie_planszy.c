@@ -11,7 +11,6 @@ char* bialy_blok="\xe2\x96\x88";
 char* czarny_blok=" ";
 
 void generowanie_planszy_poczatkowej(int r, int c, char* kierunek, int y_mrowki,int x_mrowki, double zapelnienie_procentowe, char* plansza[r][c]) {
-
 	char* znak_podstawowy;
 	
 	znak_podstawowy=bialy_blok;
@@ -19,8 +18,8 @@ void generowanie_planszy_poczatkowej(int r, int c, char* kierunek, int y_mrowki,
 		for(int j=0;j<c;j++){
 			plansza[i][j]=znak_podstawowy;
 		}
-		
 	}
+	
 	if(zapelnienie_procentowe>0.0){
 		int liczba_czarnych_blokow=(r*c)*zapelnienie_procentowe;
 		srand(time(NULL));
@@ -29,7 +28,7 @@ void generowanie_planszy_poczatkowej(int r, int c, char* kierunek, int y_mrowki,
 			rr=rand()%r;
 			rc=rand()%c;
 			if(plansza[rr][rc][0]!=' '){
-				plansza[rr][rc]=czarny_blok;
+				plansza[rr][rc]=" ";
 				liczba_czarnych_blokow--;
 			}
 			
@@ -225,7 +224,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				fprintf(stderr, "BLAD: Nieznany znak w planszy wejsciowej\n");
 				exit(1);	
 			}
-			//printf("plansza[%d][%d] = %s\n", y, x, plansza[y][x]);
+			printf("plansza[%d][%d] = %s\n", y, x, plansza[y][x]);
 			x++;
 		} else {
 			y++;
