@@ -1,6 +1,7 @@
 #include "zapis_wyniku.h"
 #include "wczytanie_planszy.h"
 #include "obsluga_argumentow.h"
+#include "ruch_mrowki.h"
 #include <string.h>
 
 	int m = 0;  // Liczba wierszy
@@ -51,6 +52,8 @@ int main(int argc, char *argv[]) {
 	else{
 		odczyt_planszy_poczatkowej(m, n, &y_mrowki, &x_mrowki, kierunek, plansza, plik_wejsciowy); //W TEJ FUNKCJI JEST BLAD
 	}
+	
+	ruch_mrowki(m, n, kierunek, y_mrowki, x_mrowki, plansza);
 	wypisanie_planszy(m,n,plansza,plik_wynikowy);
     return 0;
 }

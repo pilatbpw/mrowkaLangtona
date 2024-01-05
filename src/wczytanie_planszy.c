@@ -1,12 +1,9 @@
 #include "wczytanie_planszy.h"
-#include <stdio.h>
-#include <wchar.h>
-#include <locale.h>
 
-char* mrowka_L[2] = {"<", "\xe2\x97\x84"};  // [0] to czarna, [1] to biała
-char* mrowka_P[2] = {">", "\xe2\x96\xba"};
-char* mrowka_G[2] = {"^", "\xe2\x96\xb2"};  //Przydaloby sie pozamieniac czarne znaki mrowki na trojkaty
-char* mrowka_D[2] = {"v", "\xe2\x96\xbc"};  // ale nie dzialaja znaki trojatow niewypelnionych :(
+char* mrowka_L[2] = {"◁", "\xe2\x97\x84"};  // [0] to czarna, [1] to biała
+char* mrowka_P[2] = {"▷", "\xe2\x96\xba"};
+char* mrowka_G[2] = {"△", "\xe2\x96\xb2"};  //Przydaloby sie pozamieniac czarne znaki mrowki na trojkaty
+char* mrowka_D[2] = {"▽", "\xe2\x96\xbc"};  // ale nie dzialaja znaki trojatow niewypelnionych :(
 char* bialy_blok="\xe2\x96\x88";
 char* czarny_blok=" ";
 
@@ -100,7 +97,7 @@ void okreslenie_wielkosci_wczytanej_planszy(FILE* plik_wejsciowy, int *r, int* c
 
 void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char* kierunek, char* plansza[r][c], FILE* plik_wejsciowy){
 	wchar_t znak;
-	setlocale(LC_ALL, "en_US.utf8");
+	setlocale(LC_ALL, "en_US.UTF-8");
 	
 	int y=0;
 	int x=0;
@@ -163,15 +160,15 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 					}
 				}
 			}
-			else if(znak == ' ' || znak == '>' || znak == '<' || znak == '^' || znak == 'v')
+			else if(znak == ' ' || znak == L'▷' || znak == L'◁' || znak == L'△' || znak == L'▽')
 			{
 				if(znak == ' ')
 				{
 					plansza[y][x]=" ";
 				}
-				if(znak == '>')
+				if(znak == L'▷')
 				{
-					plansza[y][x]=">";
+					plansza[y][x]="▷";
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
@@ -181,9 +178,9 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 						exit(1);
 					}
 				}
-				else if(znak == '<')
+				else if(znak == L'◁')
 				{
-					plansza[y][x]="<";
+					plansza[y][x]="◁";
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
@@ -193,9 +190,9 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 						exit(1);
 					}
 				}
-				else if(znak == '^')
+				else if(znak == L'△')
 				{
-					plansza[y][x]="^";
+					plansza[y][x]="△";
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
@@ -205,9 +202,9 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 						exit(1);
 					}
 				}
-				else if(znak == 'v')
+				else if(znak == L'▽')
 				{
-					plansza[y][x]="v";
+					plansza[y][x]="▽";
 					if(kierunek==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
