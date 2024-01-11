@@ -95,10 +95,10 @@ void okreslenie_wielkosci_wczytanej_planszy(FILE* plik_wejsciowy, int *r, int* c
 		fclose(plik_wejsciowy);
 }
 
-void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char* kierunek, char* plansza[r][c], FILE* plik_wejsciowy){
+void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char** kierunek, char* plansza[r][c], FILE* plik_wejsciowy){
 	wchar_t znak;
-	setlocale(LC_ALL, "en_US.UTF-8");
 	
+	char* krk=NULL;
 	int y=0;
 	int x=0;
 	printf("test: %s\n", plansza[0][0]);
@@ -114,10 +114,12 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				else if(znak == L'►')
 				{
 					plansza[y][x]="\xe2\x96\xba";
-					if(kierunek==NULL){
+					if(krk==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = (char*)'p';
+						krk = "p";
+						//krk = "p";
+						//printf("%s", krk);
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -126,10 +128,10 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				else if(znak == L'◄')
 				{
 					plansza[y][x]="\xe2\x97\x84";
-					if(kierunek==NULL){
+					if(krk==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = (char*)'l';
+						krk = "l";
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -138,10 +140,10 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				else if(znak == L'▲')
 				{
 					plansza[y][x]="\xe2\x96\xb2";
-					if(kierunek==NULL){
+					if(krk==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = (char*)'g';
+						krk = "g";
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -150,10 +152,10 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				else if(znak == L'▼')
 				{
 					plansza[y][x]="\xe2\x96\xbc";
-					if(kierunek==NULL){
+					if(krk==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = (char*)'d';
+						krk = "d";
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -169,10 +171,10 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				if(znak == L'▷')
 				{
 					plansza[y][x]="▷";
-					if(kierunek==NULL){
+					if(krk==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = (char*)'p';
+						krk = "p";
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -181,10 +183,10 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				else if(znak == L'◁')
 				{
 					plansza[y][x]="◁";
-					if(kierunek==NULL){
+					if(krk==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = (char*)'l';
+						krk = "l";
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -193,10 +195,10 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				else if(znak == L'△')
 				{
 					plansza[y][x]="△";
-					if(kierunek==NULL){
+					if(krk==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = (char*)'g';
+						krk = "g";
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -205,10 +207,10 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				else if(znak == L'▽')
 				{
 					plansza[y][x]="▽";
-					if(kierunek==NULL){
+					if(krk==NULL){
 						*y_mrowki=y;
 						*x_mrowki=x;
-						kierunek = (char*)'d';
+						krk = "d";
 					}else{
 						fprintf(stderr, "BLAD: Wiecej niz jedna mrowka na planszy wejsciowej\n");
 						exit(1);
@@ -228,6 +230,8 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 			x=0;
 		}
 	}
-	//printf("%c\n", kierunek);
+	*kierunek = krk;
+	//printf("%s \n", krk);
+	//printf("%s \n", *kierunek);
 }
 

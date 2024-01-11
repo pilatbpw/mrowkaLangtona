@@ -18,7 +18,7 @@
 	
 int main(int argc, char *argv[]) {
     
- 
+	setlocale(LC_ALL, "C.UTF-8");
     obsluga_argumentow(argc, argv, &m, &n, &iteracje, &nazwa_wynikowa, &plansza_wejsciowa, &kierunek, &zapelnienie_procentowe);
 	if(nazwa_wynikowa==NULL){
 		plik_wynikowy=stdout;
@@ -50,10 +50,14 @@ int main(int argc, char *argv[]) {
 		generowanie_planszy_poczatkowej(m,n,kierunek, y_mrowki, x_mrowki, zapelnienie_procentowe, plansza);
 	}
 	else{
-		odczyt_planszy_poczatkowej(m, n, &y_mrowki, &x_mrowki, kierunek, plansza, plik_wejsciowy); //W TEJ FUNKCJI JEST BLAD
+		odczyt_planszy_poczatkowej(m, n, &y_mrowki, &x_mrowki, &kierunek, plansza, plik_wejsciowy);
+		//printf("%i, %i, %s \n", y_mrowki, x_mrowki, kierunek);
 	}
-	
-	ruch_mrowki(m, n, kierunek, y_mrowki, x_mrowki, plansza);
+	wypisanie_planszy(m,n,plansza,plik_wynikowy);
+	if(iteracje != 0)
+	{
+		ruch_mrowki(iteracje, m, n, kierunek, y_mrowki, x_mrowki, plansza);
+	}
 	wypisanie_planszy(m,n,plansza,plik_wynikowy);
     return 0;
 }
