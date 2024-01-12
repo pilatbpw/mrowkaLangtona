@@ -51,13 +51,19 @@ int main(int argc, char *argv[]) {
 	}
 	else{
 		odczyt_planszy_poczatkowej(m, n, &y_mrowki, &x_mrowki, &kierunek, plansza, plik_wejsciowy);
-		//printf("%i, %i, %s \n", y_mrowki, x_mrowki, kierunek);
+		printf("Udalo sie odczytac plansze\n");
+		printf("%i, %i, %s \n", y_mrowki, x_mrowki, kierunek);
 	}
 	wypisanie_planszy(m,n,plansza,plik_wynikowy);
+	printf("Udalo sie wypisac plansze po odczycie\n");
 	if(iteracje != 0)
 	{
+		printf("Rozpoczecie iteracji\n");
 		ruch_mrowki(iteracje, m, n, kierunek, y_mrowki, x_mrowki, plansza);
+		printf("Koniec iteracji\n");
 	}
+	
 	wypisanie_planszy(m,n,plansza,plik_wynikowy);
+	printf("Udalo sie wypisac planze po iteracji\n");
     return 0;
 }

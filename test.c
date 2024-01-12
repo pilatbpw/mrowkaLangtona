@@ -1,7 +1,15 @@
 #include <stdio.h>
+void funkcja(char *c){
+	*c='b';
+	printf("%c\n",*c);
+
+}
+
 
 int main(){
-	printf("%c\n", 219);
+	char znak='a';
+	funkcja(&znak);
+	printf("%c\n",znak);	
        return 0;	
 
 
