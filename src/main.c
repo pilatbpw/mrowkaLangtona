@@ -20,13 +20,7 @@ int main(int argc, char *argv[]) {
     
 	setlocale(LC_ALL, "C.UTF-8");
     obsluga_argumentow(argc, argv, &m, &n, &iteracje, &nazwa_wynikowa, &plansza_wejsciowa, &kierunek, &zapelnienie_procentowe);
-	if(nazwa_wynikowa==NULL){
-		plik_wynikowy=stdout;
-	}else{
-		char *sciezka_wynikowa=malloc(sizeof(nazwa_wynikowa)+sizeof("wyniki/"));
-		sprintf(sciezka_wynikowa,"%s%s","wyniki/",nazwa_wynikowa);
-		plik_wynikowy=fopen(sciezka_wynikowa,"w");
-	}
+	
 	printf("Opcje m=%i n=%i iteracje=%i nazwa_wynikowa=%s kierunek=%s plansza_wejsciowa=%s zapelnienie_procentowe=%f\n", m, n, iteracje, nazwa_wynikowa, kierunek, plansza_wejsciowa, zapelnienie_procentowe);
 	if(m!=0 && n!=0){
 		y_mrowki=m/2;
@@ -54,16 +48,17 @@ int main(int argc, char *argv[]) {
 		printf("Udalo sie odczytac plansze\n");
 		printf("%i, %i, %s \n", y_mrowki, x_mrowki, kierunek);
 	}
-	wypisanie_planszy(m,n,plansza,plik_wynikowy);
-	printf("Udalo sie wypisac plansze po odczycie\n");
-	if(iteracje != 0)
+	
+	printf("Udalo sie wypisac plansze po odczycie\n");if(iteracje != 0)
 	{
-		printf("Rozpoczecie iteracji\n");
-		ruch_mrowki(iteracje, m, n, kierunek, y_mrowki, x_mrowki, plansza);
-		printf("Koniec iteracji\n");
+		
+		
+		
+		ruch_mrowki(iteracje, m, n, kierunek, y_mrowki, x_mrowki, plansza, nazwa_wynikowa);
+		
 	}
 	
-	wypisanie_planszy(m,n,plansza,plik_wynikowy);
-	printf("Udalo sie wypisac planze po iteracji\n");
+
+	
     return 0;
 }

@@ -1,6 +1,6 @@
 #include "ruch_mrowki.h"
 #include <string.h>
-#include <unistd.h>
+
 
 char* mrowkaL[2] = {"◁", "◄"};  
 char* mrowkaP[2] = {"▷", "►"};
@@ -8,12 +8,20 @@ char* mrowkaG[2] = {"△", "▲"};
 char* mrowkaD[2] = {"▽", "▼"};  
 char* bloczek[2] = {" ", "█"};
 
-void ruch_mrowki(int iteracje, int a, int b, char* kierunek, int y_mrowki, int x_mrowki, char* plansza[a][b])
+void ruch_mrowki(int iteracje, int a, int b, char* kierunek, int y_mrowki, int x_mrowki, char* plansza[a][b], char* nazwa_wynikowa)
 {
 	if(iteracje !=0)
 	{
 		for(int i = 0; i < iteracje; i++)
 		{
+			FILE* plik_wynikowy;
+			if(nazwa_wynikowa==NULL){
+				plik_wynikowy=stdout;
+			}else{
+				char *sciezka_wynikowa=malloc(sizeof(nazwa_wynikowa)+sizeof("wyniki/")+10);
+				sprintf(sciezka_wynikowa,"%s%s %diteracja","wyniki/",nazwa_wynikowa,i+1);
+				plik_wynikowy=fopen(sciezka_wynikowa,"w");
+			}
 			int kolor_ = kolor(a, b, y_mrowki, x_mrowki, plansza) == 0;
 			printf("Udana funkcja kolor\n");
 			if(kolor_ == 0)
@@ -38,6 +46,8 @@ void ruch_mrowki(int iteracje, int a, int b, char* kierunek, int y_mrowki, int x
 				printf("BLAD!!!!!!");
 			}
 				printf("Udane poruszenie sie mrowki\n");
+				wypisanie_planszy(a,b,plansza,plik_wynikowy);
+				printf("Parametry: y_mrowki=%d x_mrowki=%d kierunek=%c kolor=%d\n", y_mrowki, x_mrowki, *kierunek, kolor_);
 			//printf("%i %i %s \n", y_mrowki, x_mrowki, kierunek);
 		}
 	}
@@ -52,15 +62,16 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 			case 'l':
 				if(x !=0)
 				{
-					plansza[y][x]=bloczek[1-kolor];		
+					plansza[y][x]=bloczek[kolor];		
 					plansza[y][x-1]=mrowkaL[kolor];
 					x--;
 				}
+				
 				break;
 			case 'p':
-				if(x !=b)
+				if(x !=b-1)
 				{
-					plansza[y][x]=bloczek[1-kolor];
+					plansza[y][x]=bloczek[kolor];
 					plansza[y][x+1]=mrowkaP[kolor];
 					x++;
 				}
@@ -68,15 +79,15 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 			case 'g':
 				if(y !=0)
 				{
-					plansza[y][x]=bloczek[1-kolor];
+					plansza[y][x]=bloczek[kolor];
 					plansza[y-1][x]=mrowkaG[kolor];
 					y--;
 				}
 				break;
 			case 'd':
-				if(y !=a)
+				if(y !=a-1)
 				{
-					plansza[y][x]=bloczek[1-kolor];
+					plansza[y][x]=bloczek[kolor];
 					plansza[y+1][x]=mrowkaD[kolor];
 					y++;	
 				}
@@ -101,7 +112,7 @@ void obrot(int a, int b, int kolor, char** kierunek, int y_mrowki, int x_mrowki,
 	printf("argumenty: a=%d b=%d kolor=%d kierunek=%s y_mrowki=%d x_mrowki=%d plansza[a][b]=%s\n", a, b, kolor, *kierunek, y_mrowki, x_mrowki, plansza[a][b]);
 	printf("mrowkaD=%s %s mrowkaG=%s %s mrowkaL=%s %s mrowkaP=%s %s bloczek=%s %s\n", mrowkaD[0],mrowkaD[1],mrowkaG[0], mrowkaG[1], mrowkaL[0], mrowkaL[1], mrowkaP[0], mrowkaP[1], bloczek[0], bloczek[1]);
 	
-	if(kolor == 0)
+	if(kolor == 1)
 	{
 		printf("Proba wypisania testowego plansza[a][b]\n");
 		printf("%s\n", plansza[y_mrowki][x_mrowki]);
@@ -141,7 +152,7 @@ void obrot(int a, int b, int kolor, char** kierunek, int y_mrowki, int x_mrowki,
 
 		printf("Udane przypisanie kierunku\n");
 	}
-	else if(kolor == 1)
+	else if(kolor == 0)
 	{
 		
 		switch((*kierunek)[0])
