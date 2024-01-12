@@ -91,7 +91,7 @@ void okreslenie_wielkosci_wczytanej_planszy(FILE* plik_wejsciowy, int *r, int* c
 		}
 		
 		
-		fprintf(stdout, "Test: m=%d n=%d\n", *r, *c);
+		
 		fclose(plik_wejsciowy);
 }
 
@@ -101,9 +101,9 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 	char* krk=NULL;
 	int y=0;
 	int x=0;
-	printf("test: %s\n", plansza[0][0]);
+	
 	while((znak=fgetwc(plik_wejsciowy))!=WEOF){
-		printf("znak=%lc\n", znak);
+	
 		if(znak!='\n'){
 			if(znak == L'█' || znak == L'►' || znak == L'◄' || znak == L'▲' || znak == L'▼')
 			{
@@ -223,7 +223,7 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 				fprintf(stderr, "BLAD: Nieznany znak w planszy wejsciowej\n");
 				exit(1);	
 			}
-			printf("plansza[%d][%d] = %s\n", y, x, plansza[y][x]);
+			
 			x++;
 		} else {
 			y++;
@@ -231,7 +231,6 @@ void odczyt_planszy_poczatkowej(int r, int c, int* y_mrowki, int* x_mrowki, char
 		}
 	}
 	*kierunek = krk;
-	//printf("%s \n", krk);
-	//printf("%s \n", *kierunek);
+	
 }
 

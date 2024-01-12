@@ -109,9 +109,17 @@ void obsluga_argumentow(int liczba_argumentow, char *argumenty[], int* m, int* n
 			fprintf(stderr, "BLAD: Nie podano kierunku startowego mrowki\n");
 			exit(1);
 		}
+		if(*iteracje==0)
+		{
+			fprintf(stdout, "BLAD: Nie podano liczby iteracji i\n");
+			exit(1);
+		}
 		if(*plansza_wejsciowa!=NULL && (*m!=0 || *n!=0 || *kierunek!=NULL || *zapelnienie_procentowe!=0.0)){
 			fprintf(stderr, "BLAD: Niepoprawne wprowadzenie argumentow\n(Uzyto jednoczenie -w oraz -m, -n, -k lub -z)\n");
 			exit(1);
 		}
-	printf("Opcje m=%i n=%i iteracje=%i nazwa_wynikowa=%s kierunek=%s\n", *m, *n, *iteracje, *nazwa_wynikowa, *kierunek);
+		if(*plansza_wejsciowa==NULL){
+			printf("Opcje m=%i n=%i iteracje=%i nazwa_wynikowa=%s kierunek=%s\n", *m, *n, *iteracje, *nazwa_wynikowa, *kierunek);
+		}
+	
 }

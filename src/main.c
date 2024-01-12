@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "C.UTF-8");
     obsluga_argumentow(argc, argv, &m, &n, &iteracje, &nazwa_wynikowa, &plansza_wejsciowa, &kierunek, &zapelnienie_procentowe);
 	
-	printf("Opcje m=%i n=%i iteracje=%i nazwa_wynikowa=%s kierunek=%s plansza_wejsciowa=%s zapelnienie_procentowe=%f\n", m, n, iteracje, nazwa_wynikowa, kierunek, plansza_wejsciowa, zapelnienie_procentowe);
+	
 	if(m!=0 && n!=0){
 		y_mrowki=m/2;
 		x_mrowki=n/2;
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 		okreslenie_wielkosci_wczytanej_planszy(plik_wejsciowy, &m, &n);
 		
 		plik_wejsciowy=fopen(plansza_wejsciowa,"r");
-		fprintf(stdout, "Test: m=%d n=%d\n", m, n);
+		
 	}
 	char* plansza[m][n]; //Zainicjowanie planszy
 	for(int i=0;i<m;i++){
@@ -38,22 +38,24 @@ int main(int argc, char *argv[]) {
 			plansza[m][n]=malloc(5);	
 		}	
 	}
-	plansza[0][0]="abc";
-	printf("test: %s\n", plansza[0][0]);
+	
+	
 	if(plansza_wejsciowa==NULL){
 		generowanie_planszy_poczatkowej(m,n,kierunek, y_mrowki, x_mrowki, zapelnienie_procentowe, plansza);
 	}
 	else{
 		odczyt_planszy_poczatkowej(m, n, &y_mrowki, &x_mrowki, &kierunek, plansza, plik_wejsciowy);
-		printf("Udalo sie odczytac plansze\n");
-		printf("%i, %i, %s \n", y_mrowki, x_mrowki, kierunek);
+		
+		
 	}
 	
-	printf("Udalo sie wypisac plansze po odczycie\n");if(iteracje != 0)
+	if(iteracje != 0)
 	{
 		
 		
-		
+		if(nazwa_wynikowa!=NULL){
+				fprintf(stdout, "Wyniki zapisano w katalogu /wyniki\n");
+		}
 		ruch_mrowki(iteracje, m, n, kierunek, y_mrowki, x_mrowki, plansza, nazwa_wynikowa);
 		
 	}
