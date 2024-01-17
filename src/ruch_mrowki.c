@@ -66,7 +66,12 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 					plansza[y][x-1]=mrowkaL[kolor];
 					x--;
 				}
-				
+				else
+				{
+					plansza[y][x]=bloczek[kolor];		
+					plansza[y][b-1]=mrowkaL[kolor];
+					x=b-1;
+				}
 				break;
 			case 'p':
 				if(x !=b-1)
@@ -74,6 +79,12 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 					plansza[y][x]=bloczek[kolor];
 					plansza[y][x+1]=mrowkaP[kolor];
 					x++;
+				}
+				else
+				{
+					plansza[y][x]=bloczek[kolor];		
+					plansza[y][0]=mrowkaP[kolor];
+					x=0;
 				}
 				break;
 			case 'g':
@@ -83,6 +94,12 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 					plansza[y-1][x]=mrowkaG[kolor];
 					y--;
 				}
+				else
+				{
+					plansza[y][x]=bloczek[kolor];		
+					plansza[a-1][x]=mrowkaG[kolor];
+					y=a-1;
+				}
 				break;
 			case 'd':
 				if(y !=a-1)
@@ -90,6 +107,12 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 					plansza[y][x]=bloczek[kolor];
 					plansza[y+1][x]=mrowkaD[kolor];
 					y++;	
+				}
+				else
+				{
+					plansza[y][x]=bloczek[kolor];		
+					plansza[0][x]=mrowkaD[kolor];
+					y=0;
 				}
 				break;
 		}
