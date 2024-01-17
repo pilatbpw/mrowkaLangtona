@@ -12,6 +12,6 @@ Dostepne argumenty:
 "-m" -> liczba rzedow planszy (wymagane)
 "-n" -> liczba kolumn planszy (wymagane)
 "-i" -> liczba iteracji ruchu mrowki (/NA RAZIE NIE OBSLUGIWANE/)
-"-p" -> nazwa plikow wynikowych (opcjonalne, w przypadku braku podania nazwa_pliku=wynik)
+"-p" -> nazwa plikow wynikowych (opcjonalne, w przypadku braku podania wynik wyswietlany na stdout)
 "-k" -> kierunek poczatkowy mrowki (wymagane)
 "-z" -> poczatkowe procentowe zapelnienie tablicy czarnymi polami (opcjonalne)
