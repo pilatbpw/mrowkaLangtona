@@ -55,7 +55,7 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 			case 'l':
 				if(x !=0)
 				{
-					plansza[y][x]=bloczek[kolor];	
+					plansza[y][x]=bloczek[1-kolor];	
 					if(strcmp(plansza[y][x-1],"█") == 0)
 					{
 						plansza[y][x-1]=mrowkaL[1];
@@ -68,7 +68,7 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 				}
 				else
 				{
-					plansza[y][x]=bloczek[kolor];		
+					plansza[y][x]=bloczek[1-kolor];		
 					if(strcmp(plansza[y][b-1],"█") == 0)
 					{
 						plansza[y][b-1]=mrowkaL[1];
@@ -83,7 +83,7 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 			case 'p':
 				if(x !=b-1)
 				{
-					plansza[y][x]=bloczek[kolor];
+					plansza[y][x]=bloczek[1-kolor];
 					if(strcmp(plansza[y][x+1], "█") == 0)
 					{
 						plansza[y][x+1]=mrowkaP[1];
@@ -96,7 +96,7 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 				}
 				else
 				{
-					plansza[y][x]=bloczek[kolor];		
+					plansza[y][x]=bloczek[1-kolor];		
 					if(strcmp(plansza[y][0],"█") == 0)
 					{
 						plansza[y][0]=mrowkaP[1];
@@ -111,7 +111,7 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 			case 'g':
 				if(y !=0)
 				{
-					plansza[y][x]=bloczek[kolor];
+					plansza[y][x]=bloczek[1-kolor];
 					if(strcmp(plansza[y-1][x],"█") == 0)
 					{
 						plansza[y-1][x]=mrowkaG[1];
@@ -124,7 +124,7 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 				}
 				else
 				{
-					plansza[y][x]=bloczek[kolor];		
+					plansza[y][x]=bloczek[1-kolor];		
 					if(strcmp(plansza[a-1][x],"█") == 0)
 					{
 						plansza[a-1][x]=mrowkaG[1];
@@ -139,7 +139,7 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 			case 'd':
 				if(y !=a-1)
 				{
-					plansza[y][x]=bloczek[kolor];
+					plansza[y][x]=bloczek[1-kolor];
 					if(strcmp(plansza[y+1][x],"█") == 0)
 					{
 						plansza[y+1][x]=mrowkaD[1];
@@ -152,7 +152,7 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 				}
 				else
 				{
-					plansza[y][x]=bloczek[kolor];		
+					plansza[y][x]=bloczek[1-kolor];		
 					if(strcmp(plansza[0][x], "█") == 0)
 					{
 						plansza[0][x]=mrowkaD[1];
