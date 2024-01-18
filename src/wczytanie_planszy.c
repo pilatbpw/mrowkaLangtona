@@ -36,9 +36,9 @@ void generowanie_planszy_poczatkowej(int r, int c, char* kierunek, int y_mrowki,
 	
 	int kolor;
 	if(plansza[y_mrowki][x_mrowki][0]==' '){ // to znaczy ze czarne pole
-		kolor=0;
-	}else{ //to znaczy ze biale pole
 		kolor=1;
+	}else{ //to znaczy ze biale pole
+		kolor=0;
 	}
 	switch(kierunek[0]){
 		case 'l':

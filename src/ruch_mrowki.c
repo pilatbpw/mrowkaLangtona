@@ -24,27 +24,20 @@ void ruch_mrowki(int iteracje, int a, int b, char* kierunek, int y_mrowki, int x
 				plik_wynikowy=fopen(sciezka_wynikowa,"w");
 			
 			}
-			int kolor_ = kolor(a, b, y_mrowki, x_mrowki, plansza) == 0;
+			int kolor_ = kolor(a, b, y_mrowki, x_mrowki, plansza);
 			
-			if(kolor_ == 0)
+			if(kolor_ == 0 || kolor_ == 1)
 			{
 			
 				obrot(a, b, kolor_, &kierunek, y_mrowki, x_mrowki, plansza);
 				
 				
-				naprzod(a, b, kolor_, kierunek, &y_mrowki, &x_mrowki, plansza);
-				
-			}
-			else if (kolor_ == 1)
-			{
-				obrot(a, b, kolor_, &kierunek, y_mrowki, x_mrowki, plansza);
-			
 				naprzod(a, b, kolor_, kierunek, &y_mrowki, &x_mrowki, plansza);
 				
 			}
 			else
 			{
-				printf("BLAD!!!!!!");
+				exit(1);
 			}
 			
 				wypisanie_planszy(a,b,plansza,plik_wynikowy);
@@ -62,14 +55,28 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 			case 'l':
 				if(x !=0)
 				{
-					plansza[y][x]=bloczek[kolor];		
-					plansza[y][x-1]=mrowkaL[kolor];
+					plansza[y][x]=bloczek[kolor];	
+					if(strcmp(plansza[y][x-1],"█") == 0)
+					{
+						plansza[y][x-1]=mrowkaL[1];
+					}
+					else if(strcmp(plansza[y][x-1]," ") == 0)
+					{
+						plansza[y][x-1]=mrowkaL[0];
+					}
 					x--;
 				}
 				else
 				{
 					plansza[y][x]=bloczek[kolor];		
-					plansza[y][b-1]=mrowkaL[kolor];
+					if(strcmp(plansza[y][b-1],"█") == 0)
+					{
+						plansza[y][b-1]=mrowkaL[1];
+					}
+					else if(strcmp(plansza[y][b-1]," ") == 0)
+					{
+						plansza[y][b-1]=mrowkaL[0];
+					}
 					x=b-1;
 				}
 				break;
@@ -77,13 +84,27 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 				if(x !=b-1)
 				{
 					plansza[y][x]=bloczek[kolor];
-					plansza[y][x+1]=mrowkaP[kolor];
+					if(strcmp(plansza[y][x+1], "█") == 0)
+					{
+						plansza[y][x+1]=mrowkaP[1];
+					}
+					else if(strcmp(plansza[y][x+1], " ") == 0)
+					{
+						plansza[y][x+1]=mrowkaP[0];
+					}
 					x++;
 				}
 				else
 				{
 					plansza[y][x]=bloczek[kolor];		
-					plansza[y][0]=mrowkaP[kolor];
+					if(strcmp(plansza[y][0],"█") == 0)
+					{
+						plansza[y][0]=mrowkaP[1];
+					}
+					else if(strcmp(plansza[y][0]," ") == 0)
+					{
+						plansza[y][0]=mrowkaP[0];
+					}
 					x=0;
 				}
 				break;
@@ -91,13 +112,27 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 				if(y !=0)
 				{
 					plansza[y][x]=bloczek[kolor];
-					plansza[y-1][x]=mrowkaG[kolor];
+					if(strcmp(plansza[y-1][x],"█") == 0)
+					{
+						plansza[y-1][x]=mrowkaG[1];
+					}
+					else if(strcmp(plansza[y-1][x]," ") == 0)
+					{
+						plansza[y-1][x]=mrowkaG[0];
+					}
 					y--;
 				}
 				else
 				{
 					plansza[y][x]=bloczek[kolor];		
-					plansza[a-1][x]=mrowkaG[kolor];
+					if(strcmp(plansza[a-1][x],"█") == 0)
+					{
+						plansza[a-1][x]=mrowkaG[1];
+					}
+					else if(strcmp(plansza[a-1][x]," ") == 0)
+					{
+						plansza[a-1][x]=mrowkaG[0];
+					}
 					y=a-1;
 				}
 				break;
@@ -105,13 +140,27 @@ void naprzod(int a, int b, int kolor, char* kierunek, int* y_mrowki, int* x_mrow
 				if(y !=a-1)
 				{
 					plansza[y][x]=bloczek[kolor];
-					plansza[y+1][x]=mrowkaD[kolor];
+					if(strcmp(plansza[y+1][x],"█") == 0)
+					{
+						plansza[y+1][x]=mrowkaD[1];
+					}
+					else if(strcmp(plansza[y+1][x]," ") == 0)
+					{
+						plansza[y+1][x]=mrowkaD[0];
+					}
 					y++;	
 				}
 				else
 				{
 					plansza[y][x]=bloczek[kolor];		
-					plansza[0][x]=mrowkaD[kolor];
+					if(strcmp(plansza[0][x], "█") == 0)
+					{
+						plansza[0][x]=mrowkaD[1];
+					}
+					else if(strcmp(plansza[0][x], " ") == 0)
+					{
+						plansza[0][x]=mrowkaD[0];
+					}
 					y=0;
 				}
 				break;
@@ -130,14 +179,13 @@ int kolor(int a, int b, int y_mrowki, int x_mrowki, char* plansza[a][b]) //kolor
 		return 2; // blad
 } // dziala
 
+
 void obrot(int a, int b, int kolor, char** kierunek, int y_mrowki, int x_mrowki, char* plansza[a][b])
 {
 	
 	
-	if(kolor == 1)
+	if(kolor == 0)
 	{
-		
-		
 		
 		switch((*kierunek)[0])
 		{
@@ -172,7 +220,7 @@ void obrot(int a, int b, int kolor, char** kierunek, int y_mrowki, int x_mrowki,
 		}
 		
 	}
-	else if(kolor == 0)
+	else if(kolor == 1)
 	{
 		
 		switch((*kierunek)[0])
